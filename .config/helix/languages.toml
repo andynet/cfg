@@ -1,0 +1,10 @@
+use-grammars = { only = [ "rust", "c", "cpp" ] }
+# pacman -S bash-language-server clang lldb
+# hx --grammar fetch
+# helix --grammar build 
+
+[[language]]
+name = "rust"
+
+[language.config]
+checkOnSave = { command = "clippy" }
