@@ -39,9 +39,6 @@ bash_prompt
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32>
 
-
-alias hx='helix'
-
 alias ..='cd ..'
 alias ...='cd ../../'
 
@@ -94,3 +91,4 @@ unset __conda_setup
 
 source /home/balaz/.config/broot/launcher/bash/br
 alias config='/usr/bin/git --git-dir=/home/balaz/.cfg/ --work-tree=/home/balaz'
+. "/home/balaz/.local/share/cargo/env"
