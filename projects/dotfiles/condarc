@@ -1,0 +1,6 @@
+auto_activate_base: false
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+anaconda_upload: false

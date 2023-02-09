@@ -1,5 +1,6 @@
 # If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+[[ $- != *i* ]] && return;
+
 
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 export CONDARC="$XDG_CONFIG_HOME/conda/condarc"
@@ -7,8 +8,10 @@ export LC_COLLATE="C"
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 
+PATH="/usr/local/texlive/2022/bin/x86_64-linux:$PATH"
+
 shopt -s checkwinsize   # adjust window size after each command
-# shopt -s globstar # allow "**" pathname expansion
+# shopt -s globstar     # allow "**" pathname expansion
 shopt -s extglob        # extended globbing used in HISTIGNORE
 shopt -s histappend     # append to the history file, don't overwrite it
 
@@ -18,10 +21,10 @@ HISTFILESIZE=-1
 HISTFILE="$XDG_STATE_HOME"/bash/history
 HISTTIMEFORMAT='%F %T '
 HISTIGNORE='+([a-z])*([\t ])'
-HISTCONTROL='ignorespace:erasedups'  # ignore duplicate and space-st>
+HISTCONTROL='ignorespace:erasedups'  # ignore duplicate and space-starting lines
 
 export TASKRC="$XDG_CONFIG_HOME/task/taskrc"
-export TASKDATA="$XDG_STATE_HOME/task/"
+TASKDATA="$XDG_STATE_HOME/task/"
 
 # ulimit -c unlimited   # store core dumps
 
@@ -36,20 +39,15 @@ function bash_prompt {
     PS1="${C1}\u@\h${C2}:${C3}\w${C2} \!\$ "
 }
 bash_prompt
+
 # colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32>
-
-
-alias hx='helix'
-
-alias ..='cd ..'
-alias ...='cd ../../'
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 alias ls='ls --color=auto --group-directories-first'
-alias la='ls --color=auto --group-directories-first -A'
-alias ll='ls --color=auto --group-directories-first -lh'
-alias l.='ls --color=auto --group-directories-first -d .!(|.)'
-
+alias ll='ls -lhF'
+alias la='ls -A'
+alias l='ls -CF'
+alias lsd='ls -d .*'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -66,31 +64,9 @@ alias gdx='fusermount -u ~/gdrive && echo "Gdrive exited"'
 bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
 
-# eval "$($HOME/miniconda/bin/conda shell.bash hook)"
 
-# if [[ -e "$CARGO_HOME/env" ]]; then
-#     . "/home/andy/.local/share/cargo/env"
-# fi
+eval "$($HOME/miniconda/bin/conda shell.bash hook)"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/balaz/.local/share/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/balaz/.local/share/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/balaz/.local/share/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/balaz/.local/share/miniconda3/bin:$PATH"
-    fi
+if [[ -e "$CARGO_HOME/env" ]]; then
+    . "/home/andy/.local/share/cargo/env"
 fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-# if [[ $(ps --no-header --pid=$PPID --format=comm) != "fish" && -z ${BASH_EXECUTION_STRING} ]]
-# then
-    # exec fish
-# fi
-
-source /home/balaz/.config/broot/launcher/bash/br
-alias config='/usr/bin/git --git-dir=/home/balaz/.cfg/ --work-tree=/home/balaz'
