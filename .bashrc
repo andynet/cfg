@@ -51,7 +51,7 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias tree='tree --dirsfirst'
-alias tl='task next -BLOCKED'
+alias tl='task next -BLOCKED rc.verbose:nothing'
 alias gd='google-drive-ocamlfuse ~/gdrive && echo "Gdrive mounted"'
 alias gdx='fusermount -u ~/gdrive && echo "Gdrive exited"'
 
