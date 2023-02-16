@@ -3,8 +3,8 @@
 set -euo pipefail
 
 option=$(
-    echo -e "Lock\nReload\nExit\nHibernate\nShutdown\nReboot" \
-    | dmenu -i -l 6 -fn "SourceCodeVariable-16"
+    echo -e "Lock\nReload\nExit\nSleep\nShutdown\nReboot" \
+    | dmenu -i -l 6 -fn "SourceCodeVariable-14"
 )
 
 case $option in
@@ -14,6 +14,6 @@ case $option in
     "Sleep")    systemctl hibernate;;
     "Shutdown") shutdown now;;
     "Reboot")   reboot;;
-    *)          i3-nagbar -m "Unknown option." -f "pango:SourceCodeVariable 16";;
+    *)          i3-nagbar -m "Unknown option." -f "pango:SourceCodeVariable 14";;
 esac
 
