@@ -9,5 +9,4 @@ Terminal=false
 Type=Application
 X-GNOME-Gettext-Domain=marker
 Keywords=marker;markdown;editor;web;
-Name[en_US]=Marker
 MimeType=text/x-markdown;

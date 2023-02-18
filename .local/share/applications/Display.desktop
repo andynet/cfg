@@ -1,7 +1,6 @@
 [Desktop Entry]
 Name=ARandR
 GenericName=Screen Settings
-GenericName[de]=Bildschirmeinstellungen
 Icon=display
 Exec=arandr
 Terminal=false
