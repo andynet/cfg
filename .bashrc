@@ -55,6 +55,7 @@ alias tl='task next -BLOCKED rc.verbose:nothing'
 alias gd='google-drive-ocamlfuse ~/gdrive && echo "Gdrive mounted"'
 alias gdx='fusermount -u ~/gdrive && echo "Gdrive exited"'
 alias vim='nvim'
+alias startx="startx > tmp 2>&1"
 
 # limits recursive functions, see 'man bash'
 [[ -z "$FUNCNEST" ]] && FUNCNEST=100
