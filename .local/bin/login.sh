@@ -1,10 +1,9 @@
 #!/bin/bash
-
 set -euo pipefail
 
 option=$(
     echo -e "Lock\nReload\nExit\nSleep\nShutdown\nReboot" \
-    | dmenu -i -l 6 -fn "SourceCodeVariable-14"
+    | dmenu -i -l 6 -fn "RobotoMono-15"
 )
 
 case $option in
@@ -14,6 +13,6 @@ case $option in
     "Sleep")    systemctl hibernate;;
     "Shutdown") shutdown now;;
     "Reboot")   reboot;;
-    *)          i3-nagbar -m "Unknown option." -f "pango:SourceCodeVariable 14";;
+    *)          i3-nagbar -m "Unknown option." -f "pango:Roboto Mono 15";;
 esac
 
