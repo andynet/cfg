@@ -1,0 +1,22 @@
+{
+    "terminal.integrated.fontSize": 18,
+    "terminal.integrated.fontWeight": "normal",
+    "editor.fontFamily": "'Roboto Mono', 'monospace', monospace",
+    "editor.fontSize": 18,
+    "editor.fontWeight": "normal",
+    "debug.console.fontSize": 16,
+    "editor.fontVariations": false,
+    "workbench.colorCustomizations": {
+        "rust_analyzer.inlayHint": "#bbbbbb"
+    },
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    "editor.semanticTokenColorCustomizations": {
+        "enabled": true,
+        "rules": {
+            "*.mutable": {
+                "underline": false,
+            }
+        }
+    },
+    "editor.matchBrackets": "never",
+}
