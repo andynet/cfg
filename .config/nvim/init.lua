@@ -1,7 +1,6 @@
 -- Install packer
 print("Starting vim.")
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-print(install_path)
 local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     is_bootstrap = true
@@ -21,7 +20,7 @@ require('packer').startup(function(use)
             'j-hui/fidget.nvim',
 
             -- Additional lua configuration, makes nvim stuff amazing
-            'folke/neodev.nvim',
+            -- 'folke/neodev.nvim',
         },
     }
 
@@ -47,13 +46,13 @@ require('packer').startup(function(use)
     use 'tpope/vim-rhubarb'
     use 'lewis6991/gitsigns.nvim'
 
-    use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+    -- use 'navarasu/onedark.nvim' -- Theme inspired by Atom
     use 'morhetz/gruvbox'
     use 'christoomey/vim-tmux-navigator'
     use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-    use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-    use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-    use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+    -- use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
+    -- use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
+    -- use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
 
     -- Fuzzy Finder (files, lsp, etc)
     use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
@@ -62,28 +61,15 @@ require('packer').startup(function(use)
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
     -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
-    local has_plugins, plugins = pcall(require, 'custom.plugins')
-    if has_plugins then
-        plugins(use)
-    end
+    -- local has_plugins, plugins = pcall(require, 'custom.plugins')
+    -- if has_plugins then
+    --     plugins(use)
+    -- end
 
     if is_bootstrap then
         require('packer').sync()
     end
 end)
-
--- When we are bootstrapping a configuration, it doesn't
--- make sense to execute the rest of the init.lua.
---
--- You'll need to restart nvim, and then it will work.
-if is_bootstrap then
-    print '=================================='
-    print '    Plugins are being installed'
-    print '    Wait until Packer completes,'
-    print '       then restart nvim'
-    print '=================================='
-    return
-end
 
 -- Automatically source and re-compile packer whenever you save this init.lua
 local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
@@ -115,9 +101,8 @@ vim.wo.signcolumn = 'yes'
 -- Set colorscheme
 vim.o.termguicolors = true
 vim.cmd [[colorscheme gruvbox]]
-local opts = {  }
+local opts = {}
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.o.colorcolumn = 80
 vim.o.listchars = 'tab:> ,trail:.'
 vim.o.list = true
 vim.o.tabstop = 4
@@ -212,7 +197,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'help', 'vim' },
+    ensure_installed = { 'c', 'cpp', 'lua', 'python', 'rust', 'help', 'vim' },
 
     highlight = { enable = true },
     indent = { enable = true, disable = { 'python' } },
@@ -329,17 +314,8 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
     -- clangd = {},
-    -- gopls = {},
     -- pyright = {},
     rust_analyzer = {},
-    -- tsserver = {},
-
-    sumneko_lua = {
-        Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-        },
-    },
 }
 
 -- Setup neovim lua configuration
@@ -383,7 +359,7 @@ cmp.setup {
         end,
     },
     mapping = cmp.mapping.preset.insert {
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs( -4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<CR>'] = cmp.mapping.confirm {
@@ -402,8 +378,8 @@ cmp.setup {
         ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
+            elseif luasnip.jumpable( -1) then
+                luasnip.jump( -1)
             else
                 fallback()
             end
@@ -415,6 +391,6 @@ cmp.setup {
     },
 }
 
--- The line beneath this is called `modeline`. See `:help modeline` 
+vim.o.colorcolumn = 80
+-- The line beneath this is called `modeline`. See `:help modeline`
 --vim: ts=2 sts=2 sw=2 etc
-

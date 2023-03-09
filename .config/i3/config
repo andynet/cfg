@@ -1,9 +1,4 @@
-# to regenerate default run i3-config-wizard(1).
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
-
 set $mod Mod4
-font pango:Roboto Mono 15
-# font pango:JetBrains Mono 14
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
@@ -110,6 +105,36 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
+# appearance
+font pango:Roboto Mono 15
+# font pango:JetBrains Mono 14
+
+set $black   #282828
+set $red     #cc241d
+set $green   #98971a
+set $yellow  #d79921
+set $blue    #458588
+set $magenta #b16286
+set $cyan    #689d6a
+set $white   #a89984
+
+# class        border  bg      text    indi    child
+# client.focused $green  $black  $green  $cyan   $green
+# client.unfocused 
+# client.focused_inactive 
+# client.urgent 
+
 bar {
         status_command i3status
+#         colors {
+#                 separator $magenta
+#                 background $green
+#                 statusline $red
+# #                                 border bg     txt    indicator
+#                 focused_workspace $green $green $green $green
+#                 # active_workspace  
+#                 # inactive_workspace
+#                 urgent_workspace $red $red $red $red
+#         }
 }
+
