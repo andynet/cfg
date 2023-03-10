@@ -57,6 +57,8 @@ alias gd='google-drive-ocamlfuse ~/gdrive && echo "Gdrive mounted"'
 alias gdx='fusermount -u ~/gdrive && echo "Gdrive exited"'
 alias vim='nvim'
 alias startx="startx > tmp 2>&1"
+alias mm="micromamba"
+alias snake="snakemake -c4 -s scripts/vinkofagy/heterozygosity.smk"
 
 # limits recursive functions, see 'man bash'
 [[ -z "$FUNCNEST" ]] && FUNCNEST=100
@@ -95,3 +97,20 @@ unset __conda_setup
 source /home/balaz/.config/broot/launcher/bash/br
 alias config='/usr/bin/git --git-dir=/home/balaz/.cfg/ --work-tree=/home/balaz'
 . "/home/balaz/.local/share/cargo/env"
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+export MAMBA_EXE="/home/balaz/.local/bin/micromamba";
+export MAMBA_ROOT_PREFIX="/home/balaz/micromamba";
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell bash --prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    if [ -f "/home/balaz/micromamba/etc/profile.d/micromamba.sh" ]; then
+        . "/home/balaz/micromamba/etc/profile.d/micromamba.sh"
+    else
+        export  PATH="/home/balaz/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
+    fi
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<
