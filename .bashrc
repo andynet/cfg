@@ -56,7 +56,7 @@ alias tl='task next -BLOCKED rc.verbose:nothing'
 alias gd='google-drive-ocamlfuse ~/gdrive && echo "Gdrive mounted"'
 alias gdx='fusermount -u ~/gdrive && echo "Gdrive exited"'
 alias vim='nvim'
-alias startx="startx > tmp 2>&1"
+alias startx="startx > session.log 2>&1"
 alias mm="micromamba"
 alias snake="snakemake -c4 -s scripts/vinkofagy/heterozygosity.smk"
 
