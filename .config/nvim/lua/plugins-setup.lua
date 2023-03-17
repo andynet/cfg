@@ -7,10 +7,9 @@ local ensure_packer = function()
     end
     return false
 end
+
 local packer_bootstrap = ensure_packer()
 
--- autocommand that reloads neovim and installs/updates/removes plugins
--- when file is saved
 vim.cmd([[ 
     augroup packer_user_config
         autocmd!
@@ -18,12 +17,16 @@ vim.cmd([[
     augroup end
 ]])
 
-local status, packer = pcall(require, "packer")
-if not status then
-    return
+local safe_load = function(plugin_name)
+    local loaded, plugin = pcall(require, plugin_name)
+    if not loaded then
+        print("Cannot load plugin ", plugin_name)
+    end
+    return plugin
 end
 
-return packer.startup(
+local packer = safe_load("packer")
+packer.startup(
     function(use)
         use("wbthomason/packer.nvim")
         use("morhetz/gruvbox")
@@ -37,17 +40,102 @@ return packer.startup(
         use("hrsh7th/cmp-buffer")
         use("hrsh7th/cmp-path")
         use("hrsh7th/cmp-nvim-lsp")
+        use("saadparwaiz1/cmp_luasnip")
+
+        use("L3MON4D3/LuaSnip")
 
         use("williamboman/mason.nvim")
         use("williamboman/mason-lspconfig.nvim")
         use("neovim/nvim-lspconfig")
 
-        -- use("nvim-treesitter/nvim-treesitter")
+        use("nvim-treesitter/nvim-treesitter")
 
         use("lewis6991/gitsigns.nvim")
 
+        use("folke/neodev.nvim")
+
         if packer_bootstrap then
-            require("packer").sync()
+            packer.sync()
         end
     end
 )
+
+-- require("plugins.nvim-tree")
+local nvimtree = safe_load("nvim-tree")
+nvimtree.setup()
+
+-- require("plugins.nvim-cmp")
+local cmp = safe_load("cmp")
+local luasnip = safe_load("luasnip")
+
+cmp.setup({
+    snippet = {
+        expand = function(args) luasnip.lsp_expand(args.body) end
+    },
+    mapping = cmp.mapping.preset.insert({
+        ["<S-Tab>"]     = cmp.mapping.select_prev_item(),
+        ["<Tab>"]       = cmp.mapping.select_next_item(),
+        ["<C-Space>"]   = cmp.mapping.complete(),
+        ["<C-e>"]       = cmp.mapping.abort(),
+        ["<CR>"]        = cmp.mapping.confirm({ select = false }),
+        ["<Up>"]        = cmp.mapping.scroll_docs(-4),  -- TODO
+        ["<Down>"]      = cmp.mapping.scroll_docs(4),   -- TODO
+    }),
+    sources = cmp.config.sources({
+        { name = "nvim_lsp" },  -- lsp
+        -- { name = "luasnip" },   -- ???
+        { name = "buffer" },    -- text within current buffer
+        { name = "path" },      -- file system paths
+    }),
+})
+
+-- require("plugins.mason")
+local mason = safe_load("mason")
+local mason_lspconfig = safe_load("mason-lspconfig")
+
+mason.setup()
+mason_lspconfig.setup({
+    ensure_installed = {
+        "rust_analyzer",
+        "clangd",
+        "lua_ls",
+    }
+})
+-- require("plugins.lspconfig")
+local lspconfig = safe_load("lspconfig")
+local cmp_nvim_lsp = safe_load("cmp_nvim_lsp")
+
+-- local on_attach = function(client, bufnr) end
+local capabilities = cmp_nvim_lsp.default_capabilities()
+
+lspconfig["lua_ls"].setup({
+    capabilities = capabilities,
+    -- on_attach = on_attach,
+})
+
+lspconfig["rust_analyzer"].setup({
+    capabilities = capabilities,
+    -- on_attach = on_attach,
+})
+
+-- require("plugins.gitsigns")
+local gitsigns = safe_load("gitsigns")
+gitsigns.setup()
+
+-- require("plugins.nvim-treesitter")
+local nvimtreesitter = safe_load("nvim-treesitter")
+
+nvimtreesitter.setup({
+  ensure_installed = { "rust", "c", "lua", "vim", "help", "query" },
+  sync_install = false,
+  auto_install = true,
+
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+})
+
+local neodev = safe_load("neodev")
+neodev.setup()
+
