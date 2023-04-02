@@ -31,7 +31,7 @@ Host compbio
 
 # yogi
 Host yogi
-    HostName 158.195.68.49
+    HostName 158.195.18.230
     ForwardX11 yes
 
 # gen-main

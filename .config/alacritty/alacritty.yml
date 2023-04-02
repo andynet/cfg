@@ -1,9 +1,11 @@
 font:
   normal:
-    family: Roboto Mono
+    family: RobotoMono Nerd Font
+    # family: Roboto Mono
     style: Regular
 
   bold:
+    # family: RobotoMono Nerd Font
     family: Roboto Mono
     style: Bold
 
@@ -16,6 +18,9 @@ font:
     style: Bold Italic
 
   size: 10
+  offset:
+    x: 0    # For letter spacing.
+    y: 4    # For line spacing.
 
 # Colors (Gruvbox dark)
 colors:
