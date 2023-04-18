@@ -60,6 +60,7 @@ alias vim='nvim'
 alias startx="startx > session.log 2>&1"
 alias mm="micromamba"
 alias snake="snakemake -c4 -s scripts/vinkofagy/heterozygosity.smk"
+alias anv="NVIM_APPNAME=astronvim nvim"
 
 # limits recursive functions, see 'man bash'
 [[ -z "$FUNCNEST" ]] && FUNCNEST=100

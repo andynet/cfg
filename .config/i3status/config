@@ -22,32 +22,35 @@ order += "volume master"
 order += "time"
 
 wireless _first_ {
-        format_up = "%essid: %quality"
-        format_quality = "%d%s"
-        format_down = ""
+    format_up = "%essid: %quality"
+    format_quality = "%d%s"
+    format_down = ""
 }
 
 ethernet _first_ {
-        format_up = "eth: %speed"
+    format_up = "eth: %speed"
 	format_down = ""
 }
 
 battery all {
-    format = "Bat: %percentage"
+    format = "%status: %percentage"
     format_percentage = "%.00f%s"
+    status_chr = "󰂄"
+    status_bat = "󰁿"
+    status_full = "󰁹"
 }
 
 cpu_usage {
-    format = "CPU: %usage"
+    format = " : %usage"
 }
 
 memory {
-    format = "Mem: %used"
+    format = "󰑹: %used"
 }
 
 volume master {
-    format = "Vol: %volume"
-    format_muted = "Vol: (%volume)"
+    format = "󰖀: %volume"
+    format_muted = "󰝟: (%volume)"
 }
 
 time {
