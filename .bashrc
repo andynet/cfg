@@ -1,6 +1,14 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+export XDG_CONFIG_HOME=$HOME/.config       # user-specific configuratio>
+export XDG_CACHE_HOME=$HOME/.cache         # user-specific non-essentia>
+export XDG_DATA_HOME=$HOME/.local/share    # user-specific data (analog>
+export XDG_STATE_HOME=$HOME/.local/state   # user-specific state files >
+
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 export CONDARC="$XDG_CONFIG_HOME/conda/condarc"
 export LC_COLLATE="C"
@@ -15,6 +23,8 @@ shopt -s extglob        # extended globbing used in HISTIGNORE
 shopt -s histappend     # append to the history file, don't overwrite it
 
 # history
+mkdir -p "${XDG_STATE_HOME}/bash"
+touch "${XDG_STATE_HOME}/bash/history"
 HISTSIZE=-1
 HISTFILESIZE=-1
 HISTFILE="$XDG_STATE_HOME"/bash/history
@@ -56,11 +66,11 @@ alias tree='tree --dirsfirst'
 alias tl='task next -BLOCKED rc.verbose:nothing'
 alias gd='google-drive-ocamlfuse ~/gdrive && echo "Gdrive mounted"'
 alias gdx='fusermount -u ~/gdrive && echo "Gdrive exited"'
-alias vim='nvim'
-alias startx="startx > session.log 2>&1"
+# alias startx="startx > session.log 2>&1"
 alias mm="micromamba"
 alias snake="snakemake -c4 -s scripts/vinkofagy/heterozygosity.smk"
 alias anv="NVIM_APPNAME=astronvim nvim"
+alias config='/usr/bin/git --git-dir=${HOME}/.cfg/ --work-tree=${HOME}'
 
 # limits recursive functions, see 'man bash'
 [[ -z "$FUNCNEST" ]] && FUNCNEST=100
@@ -96,9 +106,8 @@ unset __conda_setup
     # exec fish
 # fi
 
-source /home/balaz/.config/broot/launcher/bash/br
-alias config='/usr/bin/git --git-dir=/home/balaz/.cfg/ --work-tree=/home/balaz'
-. "/home/balaz/.local/share/cargo/env"
+# source /home/balaz/.config/broot/launcher/bash/br
+# . "/home/balaz/.local/share/cargo/env"
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
